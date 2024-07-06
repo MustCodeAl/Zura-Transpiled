@@ -4,6 +4,10 @@ project(zura)
 
 set(CMAKE_CXX_STANDARD 20)
 
+enable_testing()
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
 # Specify header and source files
 set(ZURA_HEADER_FILES
     src/helper/error/error.hpp
@@ -45,3 +49,9 @@ set(ZURA_SOURCE_FILES
 
 # Create executable
 add_executable(zura ${ZURA_HEADER_FILES} ${ZURA_SOURCE_FILES})
+
+add_executable(zura_test test/zura_test.cpp)
+target_link_libraries(zura_test ${GTEST_LIBRARIES} pthread)
+
+# Add test
+add_test(NAME zura_test COMMAND zura_test)
