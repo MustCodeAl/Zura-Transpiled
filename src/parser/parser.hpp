@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <gtest/gtest.h>
+
 
 #include "../helper/error/error.hpp"
 #include "../lexer/lexer.hpp"
@@ -141,4 +143,15 @@ namespace Parser {
     Node::Stmt *funStmt(PStruct *psr, std::string name);
     Node::Stmt *ifStmt(PStruct *psr, std::string name);
     Node::Stmt *exprStmt(PStruct *psr);
+}
+
+
+
+
+TEST(ParserTest,GroupHandlesProperSyntax) {
+    PStruct psr;
+
+    auto result = Parser::group(&psr);
+    ASSERT_EQ(result->kind, NodeKind::ND_GROUP);
+    
 }
